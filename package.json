@@ -1,0 +1,50 @@
+{
+  "name": "template-be",
+  "version": "1.0.0",
+  "description": "template-be",
+  "main": "./src/index.js",
+  "scripts": {
+    "dev": "nodemon src/index.ts",
+    "build": "rm -rf build/ && tsc -p . -w",
+    "start": "node ./build/src/index.js",
+    "seeder": "node ./build/src/seeder/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "dayjs": "^1.11.9",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-handlebars": "^7.1.2",
+    "joi": "^17.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.3",
+    "mongoose": "^7.5.4",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.4",
+    "nodemailer-express-handlebars": "^6.1.0",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/connect-timeout": "0.0.36",
+    "@types/cors": "^2.8.12",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.14",
+    "@types/joi": "^17.2.3",
+    "@types/jsonwebtoken": "^8.5.9",
+    "@types/multer": "^1.4.7",
+    "@types/node": "^18.7.18",
+    "@types/node-telegram-bot-api": "^0.57.1",
+    "@typescript-eslint/eslint-plugin": "^5.38.1",
+    "@typescript-eslint/parser": "^5.38.1",
+    "eslint": "^8.24.0",
+    "nodemon": "^2.0.19",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.3"
+  },
+  "author": "hamamullaiqi",
+  "license": "ISC"
+}
