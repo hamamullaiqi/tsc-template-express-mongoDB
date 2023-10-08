@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import userSchema from "../schema/user.schema";
 import { Request, Response } from "express";
-import { IRequestLocals } from "../interfaces";
+import { IResponseLocals } from "../interfaces";
 
 export class Auth {
     static async register(req: Request, res: Response) {
@@ -91,9 +91,11 @@ export class Auth {
         }
 
         try {
-            const userExist = await userSchema.findOne({
+            let userExist = await userSchema.findOne({
                 username: req.body.username,
             });
+
+            userExist = JSON.parse(JSON.stringify(userExist));
 
             if (!userExist) {
                 return res.status(400).send({
@@ -143,17 +145,12 @@ export class Auth {
         }
     }
 
-    static async refreshToken(req: IRequestLocals, res: Response) {
+    static async refreshToken(req: Request, res: Response) {
         try {
-            const id = req?.locals?.user;
+            const user = (res as IResponseLocals)?.locals?.user;
 
             const dataUser = await userSchema.findOne({
-                where: {
-                    id,
-                },
-                attributes: {
-                    exclude: ["createdAt", "updatedAt", "password"],
-                },
+                _id: user,
             });
 
             // data = JSON.parse(JSON.stringify(data));
@@ -166,7 +163,7 @@ export class Auth {
 
             if (!dataUser) {
                 return res.status(404).send({
-                    status: "failed",
+                    status: "FAILED",
                     message: "user tidak di temukan",
                 });
             }
@@ -178,8 +175,8 @@ export class Auth {
         } catch (error) {
             console.log(error.message);
             res.status(500).send({
-                status: "failed",
-                message: "Server Error",
+                status: "FAILED",
+                message: error?.message || "Server Error",
             });
         }
     }

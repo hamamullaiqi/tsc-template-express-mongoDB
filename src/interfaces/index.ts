@@ -1,4 +1,4 @@
-import { Request } from "express";
+import { Request, Response } from "express";
 
 export interface IProduct {
     code: string;
@@ -15,7 +15,7 @@ export interface IUser {
     deleted: number;
 }
 
-export interface IRequestLocals extends Request {
+export interface IResponseLocals extends Response {
     locals: {
         user: Record<any, any>;
     };
