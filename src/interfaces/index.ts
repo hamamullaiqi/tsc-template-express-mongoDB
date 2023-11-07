@@ -14,6 +14,11 @@ export interface IUser {
     image?: string;
     deleted: number;
 }
+export interface IRole {
+    name: string;
+    permissions: Array<Record<any, any>>;
+    deleted: number;
+}
 
 export interface IResponseLocals extends Response {
     locals: {

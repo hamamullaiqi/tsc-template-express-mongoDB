@@ -169,7 +169,7 @@ export class Auth {
             }
 
             res.send({
-                status: "success...",
+                status: "success",
                 data: { dataUser },
             });
         } catch (error) {

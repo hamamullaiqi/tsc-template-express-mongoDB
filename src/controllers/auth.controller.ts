@@ -1,5 +1,4 @@
 import express, { Router } from "express";
-import { Product } from "../services/product.service";
 import { Auth } from "../services/auth.services";
 import { checkAuth } from "../middlewares/checkAuth";
 

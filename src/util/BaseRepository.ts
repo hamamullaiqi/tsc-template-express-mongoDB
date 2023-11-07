@@ -15,20 +15,24 @@ export class BaseRepository {
         this.res = res;
     }
 
-    async getAll() {
+    async getAll(projection?: string) {
         return Exception(this.req, this.res, async () => {
-            return await this.schema.find({ deleted: 0 });
+            return await this.schema.find({ deleted: 0 }, projection);
         });
     }
     async paging(
         page: string | undefined = "1",
         perPage: string | undefined = "8",
-        filters: Record<any, any>
+        filters: Record<any, any>,
+        projection?: string
     ) {
         return Exception(this.req, this.res, async () => {
             const offset: number = (Number(page) - 1) * Number(perPage);
             let [data, total] = await Promise.all([
-                this.schema.find(filters).skip(offset).limit(parseInt(perPage)),
+                this.schema
+                    .find(filters, projection)
+                    .skip(offset)
+                    .limit(parseInt(perPage)),
                 this.schema.find(filters).count(),
             ]);
             return {
@@ -42,9 +46,13 @@ export class BaseRepository {
             };
         });
     }
-    async getOne(_id: string) {
+
+    async getOne(_id: string, projection?: string) {
         return Exception(this.req, this.res, async () => {
-            const existing = await this.schema.findOne({ _id, deleted: 0 });
+            const existing = await this.schema.findOne(
+                { _id, deleted: 0 },
+                projection
+            );
             if (!existing) throw Error("Data Not Found");
             return existing;
         });
