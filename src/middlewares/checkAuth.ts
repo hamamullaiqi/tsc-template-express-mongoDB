@@ -22,7 +22,7 @@ export const checkAuth = async (
         next();
     } catch (error) {
         console.log(error.message);
-        res.status(400).send({
+        res.status(401).send({
             message: "invalid Token",
         });
     }
